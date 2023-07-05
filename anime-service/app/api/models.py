@@ -7,7 +7,7 @@ class AnimeIn(BaseModel):
     plot: str
     genres: List[str]
     characters: List[str]
-    studio: List[str]
+    studio_id: List[int]
 
 
 class AnimeOut(AnimeIn):
@@ -19,4 +19,4 @@ class AnimeUpdate(AnimeIn):
     plot: Optional[str] = None
     genres: Optional[List[str]] = None
     characters: Optional[List[str]] = None
-    studio: Optional[List[str]] = None
+    studio_id: Optional[List[int]] = None

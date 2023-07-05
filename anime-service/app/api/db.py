@@ -19,7 +19,7 @@ anime = Table(
     Column('plot', String(255)),
     Column('genres', ARRAY(String)),
     Column('characters', ARRAY(String)),
-    Column('studio', ARRAY(String)),
+    Column('studio_id', ARRAY(Integer)),
 )
 
 database = Database(DATABASE_URL)
