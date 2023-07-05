@@ -2,7 +2,7 @@ from app.api.models import AnimeIn, AnimeOut, AnimeUpdate
 from app.api.db import anime, database
 
 async def add_anime(payload: AnimeIn):
-    query = movie.insert().values(**payload.dict())
+    query = anime.insert().values(**payload.dict())
 
     return await database.execute(query=query)
 

@@ -9,12 +9,12 @@ app = FastAPI()
 
 @app.on_event("startup")
 async def startup():
-    return database.connect()
+    return await database.connect()
 
 
 @app.on_event("shutdown")
 async def shutdown():
-    return database.disconnect()
+    return await database.disconnect()
 
 
 app.include_router(anime)
