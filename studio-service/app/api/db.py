@@ -5,7 +5,7 @@ from sqlalchemy import (Column, Integer, MetaData, String, Table, create_engine,
 
 load_dotenv()
 
-DATABASE_URL = getenv("DATABASE_URL")
+DATABASE_URL = f"postgresql://{getenv('DB_USER')}:{getenv('DB_PASSWORD')}@{getenv('DB_HOST')}:{getenv('DB_PORT')}/studio_db"
 
 engine = create_engine(DATABASE_URL)
 metadata = MetaData()

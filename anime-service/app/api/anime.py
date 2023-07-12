@@ -15,14 +15,11 @@ async def index():
 @anime.post('/', status_code=201)
 async def add_anime(payload: AnimeIn):
     for studio in payload.studio_id:
-        if not is_studio_present(studio_id):
+        if not is_studio_present(studio):
             raise HTTPException(status_code=404, detail=f"Studio with id:{studio_id} not found...")
 
     anime_id = await db_manager.add_anime(payload)
-    response = {
-        "id": anime_id,
-        **payload.dict()
-    }
+    response = { "id": anime_id, **payload.dict() }
 
     return response
 
