@@ -1,0 +1,45 @@
+version: '3.11.3'
+
+services:
+  anime_service:
+    build: ./anime-service
+    command: uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+    volumes:
+      - ./anime-service/:/app/
+    ports:
+      - 8001:8000
+    environment:
+      - DATABASE_URI=postgresql://${POSTGRES_UN}:${POSTGRES_PW}@anime_db/anime_db_dev
+      - STUDIO_SERVICE_HOST_URL=http://studio_service:8000/api/v1/studio/
+  
+  anime_db:
+    image: postgres:12.1-alpine
+    volumes:
+      - postgres_data_anime:/var/lib/postgres/data/
+    environment:
+      - POSTGRES_USER=${POSTGRES_UN}
+      - POSTGRES_PASSWORD=${POSTGRES_PW}
+      - POSTGRES_DB=anime_db_dev
+
+  studio_service:
+    build: ./studio-service
+    command: uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+    volumes:
+      - ./studio-service/:/app/
+    ports:
+      - 8002:8000
+    environment:
+      - DATABASE_URI=postgresql://${POSTGRES_UN}:${POSTGRES_PW}@studio_db/studio_db_dev
+
+  studio_db:
+    image: postgres:12.1-alpine
+    volumes:
+      - postgres_data_studio:/var/lib/postgres/data/
+    environment:
+      - POSTGRES_USER=${POSTGRES_UN}
+      - POSTGRES_PASSWORD=${POSTGRES_PW}
+      - POSTGRES_DB=studio_db_dev
+
+volumes:
+  postgres_data_anime:
+  postgres_data_studio:
